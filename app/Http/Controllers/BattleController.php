@@ -18,19 +18,18 @@ class BattleController extends Controller
 
         if (empty($pokemon1)) {
             return "{$pk1} não encontrado!";
-        } else if (empty($pokemon2)) {
+        } 
+        
+        if (empty($pokemon2)) {
             return "{$pk2} não encontrado!";
         }
+
         $forcaPokemon1 = $pokemon1['stats'][0]['base_stat'];
         $forcaPokemon2 = $pokemon2['stats'][0]['base_stat'];
-        $calculo = $forcaPokemon1 - $forcaPokemon2;
 
-        if ($calculo > 0) {
-            return "{$pk1} venceu a batalha, com {$forcaPokemon1} VS {$forcaPokemon2} de força, do pokemon {$pk2}!";
-        } else if ($calculo < 0) {
-            return "{$pk2} venceu a batalha, com {$forcaPokemon2} VS {$forcaPokemon1} de força, do pokemon {$pk1}!";
-        } else {
-            return "Empate! {$pk1}: $forcaPokemon1 VS {$pk2}: $forcaPokemon2.";
+        if($forcaPokemon1 != $forcaPokemon2) {
+            return $forcaPokemon1 > $forcaPokemon2 ? $pk1 : $pk2 . " venceu a batalha! {$pk1}: {$forcaPokemon1} VS {$pk2}: {$forcaPokemon2} de força!";
         }
+        return "Empate! {$pk1}: $forcaPokemon1 VS {$pk2}: $forcaPokemon2.";
     }
 }
